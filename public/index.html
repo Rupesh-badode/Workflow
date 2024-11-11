@@ -4,15 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workflow</title>
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        function Loginclick(event){
+            event.preventDefault();
+            fetch("../server/data.json")
+            .then(function(response){
+                return response.json();
+            })
+            .then(function(data){
+                var id = document.getElementById("fname").value;
+                var psw = document.getElementById("psw").value;
+                let loginSuccess = false;
+                for (var user of data) {
+                    if (id === user.UserName && psw === user.Password) {
+                        loginSuccess = true;
+                        break;
+                    }
+                }
+                if (loginSuccess) {
+                    messageElement.textContent = "Login successful";
+                    messageElement.style.color = "green";
+                } else {
+                    messageElement.textContent = "Invalid username or password";
+                    messageElement.style.color = "red";
+                }
+            })
+            .catch(function(error) {
+                console.error("Error fetching data:", error);
+                alert("An error occurred while logging in. Please try again later.");
+            });
+        }
+    </script>
 </head>
-<body>
-    <form>
-        <label>User Name</label>
-        <input type="text" >
-        <label>Password</label>
-        <input type="password" >
-        <button>Login</button>
-    </form>
+<body class="container-fluid">
+    <header >
+        <nav class="nav bg-light-subtle p-2">
+            <div>
+                <h2 class="navbar-brand">Workflow</h2>
+            </div>
+        </nav>
+    </header>
+    <section>
+        <h4>Login Pagee</h4>
+        <form class="form-control container">
+            <label class="form-label">User Name</label>
+            <input id="fname" class="form-control" type="text">
+            <label class="form-label">Password</label>
+            <input id="psw" type="password" class="form-control">
+            <div id="message"></div>
+            <br>
+            <button type="button" onclick="Loginclick(event)" class="btn btn-primary">Login</button>
+        </form>
+    </section>
 </body>
 </html>
