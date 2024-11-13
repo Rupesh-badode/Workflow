@@ -9,6 +9,7 @@
     <script>
         function Loginclick(event){
             event.preventDefault();
+            var message = document.getElementById("message");
             fetch("../server/data.json")
             .then(function(response){
                 return response.json();
@@ -20,15 +21,16 @@
                 for (var user of data) {
                     if (id === user.UserName && psw === user.Password) {
                         loginSuccess = true;
+                        location.href = "Dashboard.html";
                         break;
                     }
                 }
                 if (loginSuccess) {
-                    messageElement.textContent = "Login successful";
-                    messageElement.style.color = "green";
+                    message.textContent = "Login successful";
+                    message.style.color = "green";
                 } else {
-                    messageElement.textContent = "Invalid username or password";
-                    messageElement.style.color = "red";
+                    message.textContent = "Invalid username or password";
+                    message.style.color = "red";
                 }
             })
             .catch(function(error) {
@@ -40,14 +42,14 @@
 </head>
 <body class="container-fluid">
     <header >
-        <nav class="nav bg-light-subtle p-2">
+        <nav class="nav bg-dark bg-opacity-10 p-2">
             <div>
-                <h2 class="navbar-brand">Workflow</h2>
+                <h2 class="navbar-brand fw-bold">Workflow</h2>
             </div>
         </nav>
     </header>
     <section>
-        <h4>Login Pagee</h4>
+        <h4>Login Page</h4>
         <form class="form-control container">
             <label class="form-label">User Name</label>
             <input id="fname" class="form-control" type="text">
