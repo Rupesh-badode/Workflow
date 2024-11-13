@@ -10,7 +10,7 @@
         function Loginclick(event){
             event.preventDefault();
             var message = document.getElementById("message");
-            fetch("../server/data.json")
+            fetch("server/data.json")
             .then(function(response){
                 return response.json();
             })
@@ -21,7 +21,7 @@
                 for (var user of data) {
                     if (id === user.UserName && psw === user.Password) {
                         loginSuccess = true;
-                        location.href = "Dashboard.html";
+                        location.href = "public/Dashboard.html";
                         break;
                     }
                 }
